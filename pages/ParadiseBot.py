@@ -13,6 +13,16 @@ key = st.secrets['key']
 genai.configure(api_key=key)
 model = genai.GenerativeModel('gemini-2.0-flash')
 
+def episodeNames():
+    url = f"https://api.tvmaze.com/shows/75030/episodes"
+    response = requests.get(url)
+    episodes = response.json()
+
+    episodeList = []
+    for ep in episodes:
+        episodeList.append(ep['name'])
+    return episodeList
+
 def getEpisodes():
     url = f"https://api.tvmaze.com/shows/75030/episodes"
     response = requests.get(url)
@@ -22,9 +32,23 @@ def getEpisodes():
     for ep in episodes:
         summ = ep['summary']
         summ2 = summ.replace("<p>", "").replace("</p>", "")
-        epInfo = f"Episode {ep["number"]}, season {ep["season"]}: {ep['name']}, and it's summary is: {summ2}"
+        epInfo = f"Episode {ep["number"]} from season {ep["season"]}: The name is '{ep['name']}', and a quick summary is: {summ2}"
         episodeList.append(epInfo)
     return episodeList
+
+def specificEpisode(episode):
+    url = f"https://api.tvmaze.com/shows/75030/episodes"
+    response = requests.get(url)
+    episodes = response.json()
+    epInfo = ''
+
+    for ep in episodes:
+        if ep == episode:
+            summ = ep['summary']
+            summ2 = summ.replace("<p>", "").replace("</p>", "")
+            epInfo = f"Episode {ep["number"]} from season {ep["season"]}: The name is '{ep['name']}', and a quick summary is: {summ2}"
+
+    return epInfo
 
         
 if "messages" not in st.session_state:
@@ -42,16 +66,31 @@ if prompt := st.chat_input("Ask me anything about the show!"):
         st.markdown(prompt)
     try:
         if "episode" in prompt.lower():
-            api_info = getEpisodes()
-            reply = f"Here are some episodes I found:\n\n"
             
-            st.session_state.messages.append({"role": "assistant", "content": reply})
-            with st.chat_message("assistant"):
-                st.markdown(reply)
-                i=1
-                for info in api_info:
-                    st.markdown(f"{info.strip()}")
-                    i+=1
+            reply = f"Here is the information of the episode:\n\n"
+            api_info = getEpisodes()
+            inRange = False
+             for i in range(10):
+                if i in prompt:
+                    inRange = True
+                    api_info = specificEpisode(i)
+                    st.session_state.messages.append({"role": "assistant", "content": reply})
+                    with st.chat_message("assistant"):
+                        st.markdown(reply)
+                        st.markdown(api_info)
+                
+            if inRange == False:
+                reply = f"Here are some episodes I found:\n\n"
+                
+                st.session_state.messages.append({"role": "assistant", "content": reply})
+                with st.chat_message("assistant"):
+                    st.markdown(reply)
+                    i=1
+                    for info in api_info:
+                        st.markdown(f"{info.strip()}")
+                        i+=1
+            
+                
                 
         else:
             gemini_response = model.generate_content(prompt)
