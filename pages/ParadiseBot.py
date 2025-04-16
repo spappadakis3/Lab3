@@ -20,8 +20,7 @@ def getEpisodes():
 
     episodeList = []
     for ep in episodes:
-        st.markdown(ep['number'])
-        epInfo = f"Episode {ep["number"]}, season {ep["season"]}: {ep['name']}, and it's summary is: {ep['summary']}"
+        epInfo = f"Episode {ep["number"]}, season {ep["season"]}: {ep['name']}, and it's summary is: {ep['summary'].strip()}"
         episodeList.append(epInfo)
     return episodeList
 
@@ -42,15 +41,19 @@ if prompt := st.chat_input("Ask me anything about the show!"):
     try:
         if "episode" in prompt.lower():
             api_info = getEpisodes()
-            st.markdown(api_info)
             reply = f"Here are some episodes I found:\n\n"
+            st.session_state.messages.append({"role": "assistant", "content": reply})
+            with st.chat_message("assistant"):
+                st.markdown(reply)
+                st.markdown(api_info)
         else:
             gemini_response = model.generate_content(prompt)
             reply = gemini_response.text
+            st.session_state.messages.append({"role": "assistant", "content": reply})
+            with st.chat_message("assistant"):
+                st.markdown(reply)
 
-        st.session_state.messages.append({"role": "assistant", "content": reply})
-        with st.chat_message("assistant"):
-            st.markdown(reply)
+        
     except:
         st.chat_message("assistant")
         st.error("Error Present")
