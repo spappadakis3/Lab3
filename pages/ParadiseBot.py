@@ -9,16 +9,16 @@ st.write("This is phase 4 chatbot implementation")
 st.write("The chatbot can answer questions about what happened in certain episodes or facts about the actors")
 st.write("these are just ideas for how we could use it we can do other stuff too")
 
-def randomCharacter():
-    url = f"https://api.tvmaze.com/shows/75030/cast"
+def randomEpisode():
+    url = f"https://api.tvmaze.com/shows/75030/episodes"
     response = requests.get(url)
     cast = response.json()
 
-    characters = []
-    for member in cast:
-        characters.append(member['person']['character']['name'])
+    episodeList = []
+    for ep in episodes:
+        episodeList.append(ep['name'])
 
-    response = random.choice(characters)
+    response = random.choice(episodeList)
     return response
 
 key = st.secrets['key']
@@ -103,8 +103,8 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                         st.markdown(f"{info.strip()}")
                         i+=1
         
-        elif 'favorite' in prompt.lower() and 'character' in prompt.lower():
-            reply = f"My Favorite Character is :{randomCharacter()}"
+        elif 'favorite' in prompt.lower() and 'episode' in prompt.lower():
+            reply = f"My Favorite Episode is :{randomEpisode()}"
             st.session_state.messages.append({"role": "assistant", "content": reply})
             with st.chat_message("assistant"):
                 st.markdown(reply)
