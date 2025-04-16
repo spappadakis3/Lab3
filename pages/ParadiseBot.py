@@ -20,7 +20,8 @@ def getEpisodes():
 
     episodeList = []
     for ep in episodes:
-        episodeList.append(ep)
+        epInfo = f"Episode {ep["number"]}, season {ep["season"]}: {ep['name']}, and it's summary is: {ep['summary']}")
+        episodeList.append(epInfo)
     return episodeList
 
         
