@@ -20,7 +20,9 @@ def getEpisodes():
 
     episodeList = []
     for ep in episodes:
-        epInfo = f"Episode {ep["number"]}, season {ep["season"]}: {ep['name']}, and it's summary is: {ep['summary'].strip()}"
+        summ = ep['summary']
+        summ2 = summ.replace("<p>", "").replace("</p>", "")
+        epInfo = f"Episode {ep["number"]}, season {ep["season"]}: {ep['name']}, and it's summary is: {summ2}"
         episodeList.append(epInfo)
     return episodeList
 
@@ -48,7 +50,7 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                 st.markdown(reply)
                 i=1
                 for info in api_info:
-                    st.markdown(f"Episode {i}: {info.strip()}")
+                    st.markdown(f"{info.strip()}")
                     i+=1
                 
         else:
