@@ -29,5 +29,5 @@ if prompt := st.chat_input("What is up?"):
         st.markdown(prompt)
 
 with st.chat_message("assistant"):
-    response = st.write(response_generator())
+    response = st.write_stream(response_generator())
 
