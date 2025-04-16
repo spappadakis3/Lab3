@@ -21,7 +21,7 @@ def getEpisodes():
     episodeList = []
     for ep in episodes:
         st.markdown(ep['number'])
-        epInfo = f"Episode {ep["number"]}, season {ep["season"]}: {ep['name']}, and it's summary is: {ep['summary']}")
+        epInfo = f"Episode {ep["number"]}, season {ep["season"]}: {ep['name']}, and it's summary is: {ep['summary']}"
         episodeList.append(epInfo)
     return episodeList
 
