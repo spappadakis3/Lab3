@@ -26,5 +26,8 @@ if prompt := st.chat_input("Type prompt here"):
     # Display user message in chat message container
     with st.chat_message("user"):
         st.markdown(prompt)
+    with st.chat_message("assistant"):
+        response = st.write_stream(response_generator())
+
 
 
