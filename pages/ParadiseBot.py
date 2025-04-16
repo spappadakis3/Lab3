@@ -1,8 +1,15 @@
 import streamlit as st
 import random
+from google.generativeai as genai
 st.write("This is phase 4 chatbot implementation")
 st.write("The chatbot can answer questions about what happened in certain episodes or facts about the actors")
 st.write("these are just ideas for how we could use it we can do other stuff too")
+
+api_key = "AIzaSyAePJnDvz8j0N-1kp7_2lxw1q8r9V6ZMsQ" 
+#api_key = st.secrets["api_key"]
+#I will uncomment this out before I turn it in but I need to leave it out for now in order for it to run locally
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel('gemini-2.0-flash')
 
 
 def response_generator():
@@ -27,6 +34,4 @@ if prompt := st.chat_input("Type prompt here"):
         st.markdown(prompt)
     with st.chat_message("assistant"):
         response = st.write_stream(response_generator())
-
-
 
