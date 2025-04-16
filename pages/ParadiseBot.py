@@ -12,6 +12,16 @@ genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-2.0-flash')
 
 
+# Initialize chat history
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# Display chat messages from history on app rerun
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+
 def response_generator():
     response = random.choice(["Hi there! What can I help you with?","Hi, human! What's up?","Can I help you?"])
     for word in response.split():
@@ -34,4 +44,3 @@ if prompt := st.chat_input("Type prompt here"):
         st.markdown(prompt)
     with st.chat_message("assistant"):
         response = st.write_stream(response_generator())
-
