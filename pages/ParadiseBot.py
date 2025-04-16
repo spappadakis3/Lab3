@@ -7,7 +7,8 @@ st.write("The chatbot can answer questions about what happened in certain episod
 st.write("these are just ideas for how we could use it we can do other stuff too")
 
 api_key = "AIzaSyAePJnDvz8j0N-1kp7_2lxw1q8r9V6ZMsQ"
-client = OpenAI(api_key=st.secrets[api_key])
+#api_key = st.secrets["api_key"]
+client = OpenAI(api_key=api_key)
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gemini-2.0-flash"
@@ -46,3 +47,6 @@ if prompt := st.chat_input("Type prompt here"):
         stream = client.chat.completions.create(model=st.session_state["openai_model"],messages=[{"role": m["role"], "content": m["content"]}for m in st.session_state.messages],stream=True,)
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
+
+
+
