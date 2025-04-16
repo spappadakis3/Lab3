@@ -14,6 +14,7 @@ def response_generator(prompt):
     for word in response.split():
         yield word + " "
         time.sleep(.03)
+    return response
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
