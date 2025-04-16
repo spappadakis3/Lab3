@@ -7,8 +7,9 @@ st.write("these are just ideas for how we could use it we can do other stuff too
 
 
 
-def response_generator():
-    response = random.choice(["Hello there! How can I assist you today?","Hi, human! Is there anything I can help you with?","Do you need help?"])
+def response_generator(prompt):
+    #response = random.choice(["Hello there! How can I assist you today?","Hi, human! Is there anything I can help you with?","Do you need help?"])
+    response = prompt
     for word in response.split():
         yield word + " "
         time.sleep(0.05)
@@ -27,6 +28,7 @@ if prompt := st.chat_input("What can I help you with?"):
         st.markdown(prompt)
         
     with st.chat_message("assistant"):
-        response = st.write_stream(response_generator())
+        response = st.write_stream(response_generator(prompt))
         
     st.session_state.messages.append({"role": "assistant", "content": response})
+
