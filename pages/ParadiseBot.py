@@ -104,7 +104,7 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                         i+=1
         
         if 'favorite' in prompt.lower() and 'character' in prompt.lower():
-            reply = f"My Favorite Character is :{randomCharacter}"
+            reply = f"My Favorite Character is :{randomCharacter()}"
             st.session_state.messages.append({"role": "assistant", "content": reply})
             with st.chat_message("assistant"):
                 st.markdown(reply)
