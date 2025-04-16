@@ -4,5 +4,4 @@ st.write("The chatbot can answer questions about what happened in certain episod
 st.write("these are just ideas for how we could use it we can do other stuff too")
 
 chatPrompt = st.chat_input("Type prompt here") #Creates a chat input field in which a user can type in a prompt
-if chatPrompt: # Once a prompt is typed in this statement will run
-    #your code here
+
