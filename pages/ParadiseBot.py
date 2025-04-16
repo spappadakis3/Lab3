@@ -71,7 +71,7 @@ if prompt := st.chat_input("Ask me anything about the show!"):
             inRange = False
             for i in range(10):
                 st.markdown(i)
-                if i in prompt:
+                if str(i) in prompt:
                     st.markdown("found episode number")
                     inRange = True
                     api_info = specificEpisode(i)
