@@ -79,18 +79,25 @@ if prompt := st.chat_input("Ask me anything about the show!"):
 
     try:
         if "episode" in prompt.lower():
-            
-            reply = f"Here is the information of the episode:\n\n"
-            api_info = getEpisodes()
-            inRange = False
-            for i in range(10):
-                if str(i) in prompt:
-                    inRange = True
-                    api_info = specificEpisode(i)
-                    st.session_state.messages.append({"role": "assistant", "content": reply})
-                    with st.chat_message("assistant"):
-                        st.markdown(reply)
-                        st.markdown(api_info)
+
+            if 'favorite' in prompt.lower():
+                reply = f"My Favorite Episode is :{randomEpisode()}"
+                st.session_state.messages.append({"role": "assistant", "content": reply})
+                with st.chat_message("assistant"):
+                    st.markdown(reply)
+            else:
+                
+                reply = f"Here is the information of the episode:\n\n"
+                api_info = getEpisodes()
+                inRange = False
+                for i in range(10):
+                    if str(i) in prompt:
+                        inRange = True
+                        api_info = specificEpisode(i)
+                        st.session_state.messages.append({"role": "assistant", "content": reply})
+                        with st.chat_message("assistant"):
+                            st.markdown(reply)
+                            st.markdown(api_info)
                 
             if inRange == False:
                 reply = f"Here are some episodes I found:\n\n"
