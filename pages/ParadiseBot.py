@@ -70,7 +70,7 @@ if prompt := st.chat_input("Ask me anything about the show!"):
             reply = f"Here is the information of the episode:\n\n"
             api_info = getEpisodes()
             inRange = False
-             for i in range(10):
+            for i in range(10):
                 if i in prompt:
                     inRange = True
                     api_info = specificEpisode(i)
