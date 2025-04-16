@@ -9,7 +9,6 @@ def response_generator():
     response = random.choice(["Hi there! What can I help you with?","Hi, human! What's up?","Can I help you?"])
     for word in response.split():
         yield word + " "
-        time.sleep(0.03)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
