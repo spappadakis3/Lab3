@@ -9,7 +9,7 @@ st.write("The chatbot can answer questions about what happened in certain episod
 st.write("these are just ideas for how we could use it we can do other stuff too")
 
 key = st.secrets['key']
-genai.configure(api_key==key)
+genai.configure(key==key)
 model = genai.GenerativeModel('gemini-2.0-flash')
 
 def getEpisodes():
