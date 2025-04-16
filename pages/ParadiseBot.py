@@ -71,13 +71,14 @@ for message in st.session_state.messages:
 
 if prompt := st.chat_input("Ask me anything about the show!"):
     
-    if 'hi' in prompt.lower() or 'hello' in prompt.lower() or "what's up" in prompt.lower():
-        with st.chat_message("assistant"):
-            st.markdown(response_generator())
+    
 
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
+    if 'hi' in prompt.lower() or 'hello' in prompt.lower() or "what's up" in prompt.lower():
+        with st.chat_message("assistant"):
+            st.markdown(response_generator())
     try:
         if "episode" in prompt.lower():
             
