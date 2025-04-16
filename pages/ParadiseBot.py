@@ -36,19 +36,17 @@ def getEpisodes():
         episodeList.append(epInfo)
     return episodeList
 
-def specificEpisode(episode):
+def specificEpisode(episode_number):
     url = f"https://api.tvmaze.com/shows/75030/episodes"
     response = requests.get(url)
     episodes = response.json()
-    epInfo = ''
-
     for ep in episodes:
-        if ep == episode:
+        if ep["number"] == episode_number:
             summ = ep['summary']
             summ2 = summ.replace("<p>", "").replace("</p>", "")
             epInfo = f"Episode {ep["number"]} from season {ep["season"]}: The name is '{ep['name']}', and a quick summary is: {summ2}"
+            return epInfo
 
-    return epInfo
 
         
 if "messages" not in st.session_state:
