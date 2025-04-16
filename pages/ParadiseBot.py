@@ -70,8 +70,8 @@ if prompt := st.chat_input("Ask me anything about the show!"):
             api_info = getEpisodes()
             inRange = False
             for i in range(10):
-                st.markdown("is running loop")
                 if i in prompt:
+                    st.markdown("found episode number")
                     inRange = True
                     api_info = specificEpisode(i)
                     st.session_state.messages.append({"role": "assistant", "content": reply})
