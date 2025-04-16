@@ -9,6 +9,18 @@ st.write("This is phase 4 chatbot implementation")
 st.write("The chatbot can answer questions about what happened in certain episodes or facts about the actors")
 st.write("these are just ideas for how we could use it we can do other stuff too")
 
+def response_generator():
+    response = random.choice(
+        [
+            "Hi! How can I help you?",
+            "Hi, human! Is there any questions you have about the show?",
+            "Welcome to the Paradise ChatBot! I'm so happy you're here :)",
+        ]
+    )
+    for word in response.split():
+        yield word + " "
+        time.sleep(0.05)
+
 key = st.secrets['key']
 genai.configure(api_key=key)
 model = genai.GenerativeModel('gemini-2.0-flash')
@@ -40,7 +52,6 @@ def specificEpisode(episode_number):
     url = f"https://api.tvmaze.com/shows/75030/episodes"
     response = requests.get(url)
     episodes = response.json()
-    st.markdown("is running")
     for ep in episodes:
         if ep["number"] == episode_number:
             summ = ep['summary']
@@ -59,6 +70,10 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 if prompt := st.chat_input("Ask me anything about the show!"):
+    
+    if 'hi' in prompt.lower() or 'hello' in prompt.lower() or "what's up" in prompt.lower():
+        with st.chat_message("assistant"):
+            st.markdown(response_generator())
 
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
