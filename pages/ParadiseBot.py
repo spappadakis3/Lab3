@@ -40,7 +40,7 @@ if prompt := st.chat_input("Ask me anything about the show!"):
         st.markdown(prompt)
     try:
         if "episode" in prompt.lower():
-            api_info = get_show_episodes()
+            api_info = getEpisodes()
             reply = f"Here are some episodes I found:\n\n{api_info}"
         else:
             gemini_response = model.generate_content(prompt)
@@ -51,6 +51,5 @@ if prompt := st.chat_input("Ask me anything about the show!"):
             st.markdown(reply)
     except:
         st.chat_message("assistant")
-        st.error("Error")
-
+        st.error("Error Present")
 
