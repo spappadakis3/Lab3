@@ -1,7 +1,7 @@
 import streamlit as st
 import random
 import time
-import Paradise_LLM_Analysis
+import pages/Paradise_LLM_Analysis as Paradise_LLM_Analysis
 
 
 
