@@ -42,7 +42,8 @@ if prompt := st.chat_input("Ask me anything about the show!"):
     try:
         if "episode" in prompt.lower():
             api_info = getEpisodes()
-            reply = f"Here are some episodes I found:\n\n{api_info}"
+            st.markdown(api_info)
+            reply = f"Here are some episodes I found:\n\n"
         else:
             gemini_response = model.generate_content(prompt)
             reply = gemini_response.text
