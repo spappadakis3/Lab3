@@ -16,7 +16,7 @@ def randomCharacter():
 
     characters = []
     for member in cast:
-        characters.append(member['character']['name'])
+        characters.append(member['person']['character']['name'])
 
     response = random.choice(characters)
     return response
