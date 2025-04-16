@@ -40,6 +40,7 @@ def specificEpisode(episode_number):
     url = f"https://api.tvmaze.com/shows/75030/episodes"
     response = requests.get(url)
     episodes = response.json()
+    st.markdown("is running")
     for ep in episodes:
         if ep["number"] == episode_number:
             summ = ep['summary']
