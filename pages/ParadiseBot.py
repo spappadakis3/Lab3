@@ -21,7 +21,6 @@ def getEpisodes():
     episodeList = []
     for ep in episodes:
         episodeList.append(ep)
-    st.write(episodeList)
     return episodeList
 
         
