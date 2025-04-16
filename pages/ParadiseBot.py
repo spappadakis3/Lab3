@@ -17,9 +17,7 @@ def response_generator():
             "Welcome to the Paradise ChatBot! I'm so happy you're here :)",
         ]
     )
-    for word in response.split():
-        yield word + " "
-        time.sleep(0.05)
+    return response
 
 key = st.secrets['key']
 genai.configure(api_key=key)
@@ -76,9 +74,11 @@ if prompt := st.chat_input("Ask me anything about the show!"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
+
     if 'hi' in prompt.lower() or 'hello' in prompt.lower() or "what's up" in prompt.lower():
         with st.chat_message("assistant"):
             st.markdown(response_generator())
+            
     try:
         if "episode" in prompt.lower():
             
