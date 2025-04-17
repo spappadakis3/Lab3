@@ -107,12 +107,7 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                     for info in api_info:
                         st.markdown(f"{info.strip()}")
                         i+=1
-        
-        elif 'favorite' in prompt.lower() and 'episode' in prompt.lower():
-            reply = f"My Favorite Episode is :{random.choice(randomEpisode())}"
-            st.session_state.messages.append({"role": "assistant", "content": reply})
-            with st.chat_message("assistant"):
-                st.markdown(reply)
+      
                 
                 
         else:
