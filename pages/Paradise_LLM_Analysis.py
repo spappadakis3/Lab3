@@ -7,7 +7,7 @@ st.title("Paradise LLM Analysis")
 api_key = "AIzaSyAePJnDvz8j0N-1kp7_2lxw1q8r9V6ZMsQ" 
 #api_key = st.secrets["api_key"]
 #I will uncomment this out before I turn it in but I need to leave it out for now in order for it to run locally
-genai.configure(api_key=api_key)
+genai.configure(api_key=key)
 model = genai.GenerativeModel('gemini-2.0-flash')
 
 def get_episode_data(episode_number):
