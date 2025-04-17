@@ -16,10 +16,12 @@ def randomEpisode():
 
     episodeList = []
     for ep in episodes:
-        st.markdown(ep)
         episodeList.append(ep['name'])
-    
-    return episodeList
+    response = random.choice(episodeList)
+    summ = response['summary']
+    summ2 = summ.replace("<p>", "").replace("</p>", "")
+    epInfo = f"Episode {response["number"]} from season {response["season"]}: The name is '{response['name']}', and a quick summary is: {summ2}"
+    return epInfo
 
 key = st.secrets['key']
 genai.configure(api_key=key)
@@ -110,12 +112,6 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                         st.markdown(f"{info.strip()}")
                         i+=1
         
-        elif 'favorite' in prompt.lower() and 'episode' in prompt.lower():
-            reply = f"My Favorite Episode is :{random.choice(randomEpisode())}"
-            st.session_state.messages.append({"role": "assistant", "content": reply})
-            with st.chat_message("assistant"):
-                st.markdown(reply)
-                
                 
         else:
             gemini_response = model.generate_content(prompt)
