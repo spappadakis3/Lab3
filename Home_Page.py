@@ -1,3 +1,4 @@
+
 import streamlit as st
 
 # Title of App
@@ -24,6 +25,6 @@ Welcome to our Streamlit Web Development Lab03 app! You can navigate between the
 
 1. Paradise Show Info! This page features a line graph of episode ratings, with options to view an image and summary for each episode. It also displays an image of a selected actor and lets users compare episode lengths via an interactive bar graph. 
 2. Paradise LLM Analysis - This page allows you to interact with a chatbot to ask questions about next season predictions, character analysis, and epsiode connections to the overall plot of the show!
-3. Page 3- to be completed in phase 4
+3. ParadiseBot- Interact with a chatbot and ask questions about the show Paradise!
 
 """)
