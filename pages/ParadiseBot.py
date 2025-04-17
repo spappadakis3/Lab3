@@ -133,7 +133,6 @@ if prompt := st.chat_input("Ask me anything about the show!"):
 
             nameGiven = False
             for member in cast:
-                st.markdown(member['character']['name'])
                 if member['character']['name'].lower() in prompt.lower():
                     nameGiven = True
                     reply = f"Here is info on the character: \n"
