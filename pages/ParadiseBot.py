@@ -62,9 +62,7 @@ def getCharacter(name):
     response = requests.get(url)
     cast = response.json()
 
-    st.markdown("attempting)")
     for member in cast:
-        st.markdown("in loop")
         if member['character']['name'] == name:
             reply = f"{name}'s name in real life is {member['name']}, their birthday is {member['birthday']}#, and they are from {member['country']['name']}"
             return reply
@@ -135,7 +133,6 @@ if prompt := st.chat_input("Ask me anything about the show!"):
 
             nameGiven = False
             for member in cast:
-                st.markdown(member['character']['name'])
                 if member['character']['name'].lower() in prompt.lower():
                     nameGiven = True
                     reply = f"Here is info on the character: \n"
