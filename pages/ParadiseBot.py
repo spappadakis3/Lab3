@@ -17,7 +17,7 @@ def randomEpisode():
     episodeList = []
     for ep in episodes:
         episodeList.append(ep['name'])
-    return episodeList
+    return  random.choice(episodeList)
 
 key = st.secrets['key']
 genai.configure(api_key=key)
@@ -31,7 +31,7 @@ def episodeNames():
     episodeList = []
     for ep in episodes:
         episodeList.append(ep['name'])
-    return random.choice(episodeList)
+    return episodeList
 
 def getEpisodes():
     url = f"https://api.tvmaze.com/shows/75030/episodes"
@@ -70,7 +70,6 @@ for message in st.session_state.messages:
 if prompt := st.chat_input("Ask me anything about the show!"):
     
     
-
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
