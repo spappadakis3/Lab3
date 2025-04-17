@@ -75,7 +75,7 @@ def getAllCharacters():
         characters.append(f"{member['character']['name']}'s name in real life is {member['name']}, their birthday is {member['birthday']}, and they are from {member['country']['name']}")
 
     return characters
-     
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -143,12 +143,12 @@ if prompt := st.chat_input("Ask me anything about the show!"):
             if nameGiven == False:
                 reply = f"Here are some characters I found:\n\n"
                 
-                    st.session_state.messages.append({"role": "assistant", "content": reply})
-                    with st.chat_message("assistant"):
-                        st.markdown(reply)
-                        api_info = getAllCharacters()
-                        for info in api_info:
-                            st.markdown(f"{info.strip()}")
+                st.session_state.messages.append({"role": "assistant", "content": reply})
+                with st.chat_message("assistant"):
+                    st.markdown(reply)
+                    api_info = getAllCharacters()
+                    for info in api_info:
+                        st.markdown(f"{info.strip()}")
                             
 
         else:
