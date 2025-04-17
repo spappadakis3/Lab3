@@ -62,7 +62,9 @@ def getCharacter(name):
     response = requests.get(url)
     cast = response.json()
 
+    st.markdown("attempting)")
     for member in cast:
+        st.markdown("in loop")
         if member['character']['name'] == name:
             reply = f"{name}'s name in real life is {member['name']}, their birthday is {member['birthday']}, and they are from {member['country']['name']}"
             return reply
@@ -124,7 +126,7 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                             st.markdown(f"{info.strip()}")
                             i+=1
         
-        if 'character' in prompt.lower():
+        elif 'character' in prompt.lower():
 
 
             url = f"https://api.tvmaze.com/shows/75030/cast"
