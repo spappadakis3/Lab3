@@ -96,16 +96,16 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                             st.markdown(reply)
                             st.markdown(api_info)
                 
-            if inRange == False:
-                reply = f"Here are some episodes I found:\n\n"
+                if inRange == False:
+                    reply = f"Here are some episodes I found:\n\n"
                 
-                st.session_state.messages.append({"role": "assistant", "content": reply})
-                with st.chat_message("assistant"):
-                    st.markdown(reply)
-                    i=1
-                    for info in api_info:
-                        st.markdown(f"{info.strip()}")
-                        i+=1
+                    st.session_state.messages.append({"role": "assistant", "content": reply})
+                    with st.chat_message("assistant"):
+                        st.markdown(reply)
+                        i=1
+                        for info in api_info:
+                            st.markdown(f"{info.strip()}")
+                            i+=1
         
                 
         else:
