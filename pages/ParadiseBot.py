@@ -1,3 +1,4 @@
+
 import streamlit as st
 import random
 import time
@@ -63,8 +64,8 @@ def getCharacter(name):
     cast = response.json()
 
     for member in cast:
-        if member['character']['name'] == name:
-            reply = f"{name}'s name in real life is {member['name']}, their birthday is {member['birthday']}#, and they are from {member['country']['name']}"
+        if member['character']['name'].lower() == name.lower():
+            reply = f"{name}'s name in real life is {member['name']}, their birthday is {member['birthday']}
             return reply
 def getAllCharacters():
     url = f"https://api.tvmaze.com/shows/75030/cast"
