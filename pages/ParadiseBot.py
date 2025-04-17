@@ -135,8 +135,8 @@ if prompt := st.chat_input("Ask me anything about the show!"):
 
             nameGiven = False
             for member in cast:
-                st.markdown(member['person'])
-                if member['name'].lower() in prompt.lower():
+                st.markdown(member['character'])
+                if member['character']['name'].lower() in prompt.lower():
                     nameGiven = True
                     reply = f"Here is info on the character: \n"
                     st.session_state.messages.append({"role": "assistant", "content": reply})
