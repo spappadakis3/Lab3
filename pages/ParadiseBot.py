@@ -65,7 +65,7 @@ def getCharacter(name):
 
     for member in cast:
         if member['character']['name'].lower() == name.lower():
-            reply = f"{name}'s name in real life is {member['name']}, their birthday is {member['birthday']}
+            reply = f"{name}'s name in real life is {member['name']}, their birthday is {member['birthday']}"
             return reply
 def getAllCharacters():
     url = f"https://api.tvmaze.com/shows/75030/cast"
@@ -73,7 +73,7 @@ def getAllCharacters():
     cast = response.json()
     characters = []
     for member in cast:
-        characters.append(f"{member['character']['name']} whose name in real life is {member['person']['name']}, their birthday is {member['person']['birthday']}")#, and they are from {member['person']['country']['name']}")
+        characters.append(f"{member['character']['name']} whose name in real life is {member['person']['name']}, their birthday is {member['person']['birthday']}")
 
     return characters
 
