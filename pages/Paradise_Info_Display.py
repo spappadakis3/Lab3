@@ -49,7 +49,7 @@ def paradise():
 
     st.header("Chose an Episode to see a graph displaying how long each one is")
     st.write("**X-axis:** Episode Number  |  **Y-axis:** Run Time")
-    chosenEpisode = st.multiselect("Choose Episode Name:", episode_names.values())
+    chosenEpisode = st.multiselect("Choose Episode Number:", episodes)
 
     if "selected_runtime_episodes" not in st.session_state:
         st.session_state.selected_runtime_episodes = []
