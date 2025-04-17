@@ -10,6 +10,7 @@ st.write("The chatbot can answer questions about what happened in certain episod
 st.write("these are just ideas for how we could use it we can do other stuff too")
 
 def randomEpisode():
+    st.markdown("in def")
     url = f"https://api.tvmaze.com/shows/75030/episodes"
     response = requests.get(url)
     cast = response.json()
