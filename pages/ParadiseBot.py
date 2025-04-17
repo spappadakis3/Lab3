@@ -66,7 +66,7 @@ def getCharacter(name):
     for member in cast:
         st.markdown("in loop")
         if member['character']['name'] == name:
-            reply = f"{name}'s name in real life is {member['name']}")#, their birthday is {member['birthday']}, and they are from {member['country']['name']}"
+            reply = f"{name}'s name in real life is {member['name']}"#, their birthday is {member['birthday']}, and they are from {member['country']['name']}"
             return reply
 def getAllCharacters():
     url = f"https://api.tvmaze.com/shows/75030/cast"
