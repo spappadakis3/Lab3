@@ -1,3 +1,4 @@
+
 import streamlit as st
 import random
 import time
@@ -8,6 +9,9 @@ st.title("Paradise Chat Bot!")
 
 st.write("Ask me questions about the show Paradise on Hulu!")
 st.write("Some question recommendations: ask me about the episodes, cast, and characters!")
+api_info = "https://api.tvmaze.com/shows/75030"
+cast_api= "https://api.tvmaze.com/shows/75030/cast"
+episode_api = "https://api.tvmaze.com/shows/75030/episodes"
 
 def randomEpisode():
     url = f"https://api.tvmaze.com/shows/75030/episodes"
@@ -42,7 +46,7 @@ def getEpisodes():
     for ep in episodes:
         summ = ep['summary']
         summ2 = summ.replace("<p>", "").replace("</p>", "")
-        epInfo = f"Episode {ep["number"]} from season {ep["season"]}: The name is '{ep['name']}', and a quick summary is: {summ2}"
+        epInfo = f"Episode {ep['number']} from season {ep['season']}: The name is '{ep['name']}', and a quick summary is: {summ2}"
         episodeList.append(epInfo)
     return episodeList
 
@@ -54,7 +58,7 @@ def specificEpisode(episode_number):
         if ep["number"] == episode_number:
             summ = ep['summary']
             summ2 = summ.replace("<p>", "").replace("</p>", "")
-            epInfo = f"Episode {ep["number"]} from season {ep["season"]}: The name is '{ep['name']}', and a quick summary is: {summ2}"
+            epInfo = f"Episode {ep['number']} from season {ep['season']}: The name is '{ep['name']}', and a quick summary is: {summ2}"
             return epInfo
 
 def getCharacter(name):
@@ -108,10 +112,11 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                     if str(i) in prompt:
                         inRange = True
                         api_info = specificEpisode(i)
+                        reply = api_info
                         st.session_state.messages.append({"role": "assistant", "content": reply})
                         with st.chat_message("assistant"):
                             st.markdown(reply)
-                            st.markdown(api_info)
+                        
                 
                 if inRange == False:
                     reply = f"Here are some episodes I found:\n\n"
@@ -136,9 +141,11 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                 if member['character']['name'].lower() in prompt.lower():
                     nameGiven = True
                     reply = f"Here is info on the character: \n"
+                    reply = getCharacter(member['character']['name'])
                     st.session_state.messages.append({"role": "assistant", "content": reply})
                     with st.chat_message("assistant"):
-                        st.markdown(getCharacter(member['character']['name']))
+                        st.markdown(reply)
+                        
                 
             if nameGiven == False:
                 reply = f"Here are some characters I found:\n\n"
@@ -152,7 +159,20 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                             
 
         else:
-            gemini_response = model.generate_content(prompt)
+            convoHistory = ""
+            for msg in st.session_state.messages:
+                if msg["role"] == "user":
+                    convoHistory += f"User: {msg['content']}\n"
+                else:
+                    convoHistory += f"Assistant: {msg['content']}\n"
+
+            convoHistory += f"User: {prompt}\nAssistant:"
+            context = ( "The user is asking about the 2025 Hulu series 'Paradise', a political thriller."
+                        "The show stars Sterling K. Brown as Secret Service agent Xavier Collins, and has other cast members like James Marsden, Julianne Nicholson, Sarah Shahi, and more." 
+                       "Please answer based on this specific TV show."
+                       f"You can also use data from these apis {api_info} {cast_api} {episode_api}\n\n" )
+            updated_prompt = context + convoHistory
+            gemini_response = model.generate_content(updated_prompt)
             reply = gemini_response.text
             st.session_state.messages.append({"role": "assistant", "content": reply})
             with st.chat_message("assistant"):
@@ -162,4 +182,3 @@ if prompt := st.chat_input("Ask me anything about the show!"):
     except:
         st.chat_message("assistant")
         st.error("Error Present")
-
