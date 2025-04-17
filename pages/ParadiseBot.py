@@ -132,7 +132,7 @@ if prompt := st.chat_input("Ask me anything about the show!"):
             url = f"https://api.tvmaze.com/shows/75030/cast"
             response = requests.get(url)
             cast = response.json()
-            st.markdown(cast['person'])
+            st.markdown(cast)
 
             nameGiven = False
             for member in cast:
