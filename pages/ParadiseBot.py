@@ -21,7 +21,7 @@ def randomEpisode():
     summ = response['summary']
     summ2 = summ.replace("<p>", "").replace("</p>", "")
     epInfo = f"Episode {response["number"]} from season {response["season"]}: The name is '{response['name']}', and a quick summary is: {summ2}"
-    return epInfo
+    return response
 
 key = st.secrets['key']
 genai.configure(api_key=key)
