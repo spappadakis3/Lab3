@@ -4,10 +4,10 @@ import time
 import requests
 import google.generativeai as genai
 
+st.title("Paradise Chat Bot!")
 
-st.write("This is phase 4 chatbot implementation")
-st.write("The chatbot can answer questions about what happened in certain episodes or facts about the actors")
-st.write("these are just ideas for how we could use it we can do other stuff too")
+st.write("Ask me questions about the show Paradise on Hulu!")
+st.write("Some question recommendations: ask me about the episodes, cast, and characters!")
 
 def randomEpisode():
     url = f"https://api.tvmaze.com/shows/75030/episodes"
@@ -57,8 +57,25 @@ def specificEpisode(episode_number):
             epInfo = f"Episode {ep["number"]} from season {ep["season"]}: The name is '{ep['name']}', and a quick summary is: {summ2}"
             return epInfo
 
+def getCharacter(name):
+    url = f"https://api.tvmaze.com/shows/75030/cast"
+    response = requests.get(url)
+    cast = response.json()
 
-        
+    for member in cast:
+        if member['character']['name'] == name:
+            reply = f"{name}'s name in real life is {member['name']}, their birthday is {member['birthday']}, and they are from {member['country']['name']}"
+            return reply
+def getAllCharacters():
+    url = f"https://api.tvmaze.com/shows/75030/cast"
+    response = requests.get(url)
+    cast = response.json()
+    characters = []
+    for member in cast:
+        characters.append(f"{member['character']['name']}'s name in real life is {member['name']}, their birthday is {member['birthday']}, and they are from {member['country']['name']}")
+
+    return characters
+     
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -107,7 +124,33 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                             st.markdown(f"{info.strip()}")
                             i+=1
         
+        if 'character' in prompt.lower():
+
+
+            url = f"https://api.tvmaze.com/shows/75030/cast"
+            response = requests.get(url)
+            cast = response.json()
+
+            nameGiven = False
+            for member in cast:
+                if member['name'].lower() in prompt.lower():
+                    nameGiven = True
+                    reply = f"Here is info on the character: \n"
+                    st.session_state.messages.append({"role": "assistant", "content": reply})
+                    with st.chat_message("assistant"):
+                        st.markdown(getCharacter(member['name']))
                 
+            if nameGiven == False:
+                reply = f"Here are some characters I found:\n\n"
+                
+                    st.session_state.messages.append({"role": "assistant", "content": reply})
+                    with st.chat_message("assistant"):
+                        st.markdown(reply)
+                        api_info = getAllCharacters()
+                        for info in api_info:
+                            st.markdown(f"{info.strip()}")
+                            
+
         else:
             gemini_response = model.generate_content(prompt)
             reply = gemini_response.text
