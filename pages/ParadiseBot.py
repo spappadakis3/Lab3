@@ -139,7 +139,7 @@ if prompt := st.chat_input("Ask me anything about the show!"):
                     reply = f"Here is info on the character: \n"
                     st.session_state.messages.append({"role": "assistant", "content": reply})
                     with st.chat_message("assistant"):
-                        st.markdown(getCharacter(member['name']))
+                        st.markdown(getCharacter(member['character']['name']))
                 
             if nameGiven == False:
                 reply = f"Here are some characters I found:\n\n"
