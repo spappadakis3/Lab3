@@ -74,7 +74,7 @@ def getAllCharacters():
     cast = response.json()
     characters = []
     for member in cast:
-        characters.append(f"{member['character']['name']}'s name in real life is {member['name']}, their birthday is {member['birthday']}, and they are from {member['country']['name']}")
+        characters.append(f"{member['character']['name']}'s name in real life is {member['person']['name']}, their birthday is {member['person']['birthday']}, and they are from {member['person']['country']['name']}")
 
     return characters
 
