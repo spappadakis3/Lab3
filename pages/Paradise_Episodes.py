@@ -1,3 +1,4 @@
+
 import requests
 import streamlit as st
 import pandas as pd
@@ -41,14 +42,14 @@ def paradise():
     else:
         st.write("No image is available for this episode")
 
-    st.header("Select the name of your favorite episode to show the summary")
+    st.header("Select the number of your favorite episode to show the summary")
     selectedEpisodeSummary = st.selectbox("Select an Episode Number to see the Summary:", episodes)
     if selectedEpisodeSummary:
         st.info(summaries[selectedEpisodeSummary])
 
     st.header("Chose an Episode to see a graph displaying how long each one is")
     st.write("**X-axis:** Episode Number  |  **Y-axis:** Run Time")
-    chosenEpisode = st.multiselect("Choose Episode Name:", episodes)
+    chosenEpisode = st.multiselect("Choose Episode Name:", episode_names.values())
 
     if "selected_runtime_episodes" not in st.session_state:
         st.session_state.selected_runtime_episodes = []
