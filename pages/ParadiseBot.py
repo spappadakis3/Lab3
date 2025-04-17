@@ -16,8 +16,9 @@ def randomEpisode():
 
     episodeList = []
     for ep in episodes:
+        st.markdown(ep)
         episodeList.append(ep['name'])
-    st.markdown(episodeList)
+    
     return episodeList
 
 key = st.secrets['key']
